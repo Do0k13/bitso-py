@@ -25,7 +25,9 @@
 
 import json
 import websocket
-from models import StreamUpdate
+#ImportError: No module named 'models' in Python 3
+# https://stackoverflow.com/questions/39748367/importerror-no-module-named-models-in-python-3
+from .models import StreamUpdate
 
 
 class Listener(object):
@@ -58,15 +60,15 @@ class Client(object):
         self.ws_client.run_forever()
 
     def close(self):
-        print "received close"
+        print ("received close")
         self.ws_client.close()
 
     def _on_close(self, ws):
-        print "closing connection"
+        print ("closing connection")
         self.listener.on_close()
         
     def _on_error(self, ws, error):
-        print error
+        print (error)
         
     def _on_open(self, ws):
         for channel in self.channels:
